@@ -16,7 +16,7 @@ This was our entry for [AT&T VR/AR Hackathon - Bay Area](https://www.eventbrite.
   - [GitHub](https://github.com/BerniceChua)
   - [LinkedIn](https://linkedin.com/in/bernicechua415)
   - [Twitter](https://twitter.com/ChuaBernice)
-- Niko Korolog (musician)
+- Niko Korolog (musician and idea-originator)
   - [LinkedIn](https://www.linkedin.com/in/niko-korolog-64699834/)
   - [Twitter](https://twitter.com/nikokorolog)
 
