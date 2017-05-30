@@ -5,14 +5,7 @@ using UnityEngine;
 public class Orbit : MonoBehaviour {
 
     public Transform target;
-
-    DetectPhoneMovements phoneMoves;
-
-    public float speed = 10.0f;
-
-    Vector3 m_lastPosition = Vector3.zero;
-    float m_previousSpeed = 0.0f;
-
+    [SerializeField] float m_multiplier = 10.0f;
 
     // Use this for initialization
     void Start () {
@@ -21,16 +14,23 @@ public class Orbit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       speed = GetSpeed();
+        //speed = GetSpeed();
 
-        transform.RotateAround(target.position, target.up, speed * Time.deltaTime);
+        //transform.RotateAround(target.position, target.up, speed * Time.deltaTime);
+
+        float speedOfGamePiece = GetSpeed();
+
+        //transform.RotateAround(target.position, target.up, speedOfGamePiece);
+        transform.RotateAround(target.position, Vector3.up, speedOfGamePiece);
     }
 
     float GetSpeed()
     {
-        float speed = (Input.acceleration.x - m_previousSpeed) / Time.deltaTime;
+        //float speed = (Input.acceleration.x - m_previousSpeed) / Time.deltaTime;
 
-        m_previousSpeed = Input.acceleration.x;
+        //m_previousSpeed = Input.acceleration.x;
+
+        float speed = Mathf.Abs(Input.gyro.attitude.x) * m_multiplier;
 
         return speed;
     }
