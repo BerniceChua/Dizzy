@@ -7,18 +7,21 @@ public class DetectPhoneMovements : MonoBehaviour {
     //Rigidbody rb { get { return GetComponent<Rigidbody>(); } set { rb = value; } }
        [SerializeField] float speed = 10.0f;
 
+    Vector3 m_lastPosition = Vector3.zero;
+
     //   //public float m_Horizontal { get { return Input.gyro.rotationRateUnbiased.x; } /*set { m_Horizontal = value; }*/ }
     //   public float m_Horizontal { get { return Input.compass.trueHeading; } /*set { m_Horizontal = value; }*/ }
 
 
-    //   // Use this for initialization
-    //   void Awake () {
-    //       /// This enables Compass.trueHeading property to contain a valid value, you must also enable location updates
-    //       Input.location.Start();
-    //       Input.compass.enabled = true;
+    // Use this for initialization
+    void Awake()
+    {
+        /// This enables Compass.trueHeading property to contain a valid value, you must also enable location updates
+        //Input.location.Start();
+        //Input.compass.enabled = true;
 
-    //       speed = m_Horizontal;
-    //   }
+        //speed = m_Horizontal;
+    }
 
     //// Update is called once per frame
     //void Update () {
@@ -71,6 +74,15 @@ public class DetectPhoneMovements : MonoBehaviour {
 
         //dir *= Time.deltaTime;
         transform.Translate(dir * speed);
+    }
+
+    float GetSpeed()
+    {
+        float speed = (transform.position - m_lastPosition).magnitude / Time.deltaTime;
+
+        m_lastPosition = transform.position;
+
+        return speed;
     }
 
 }

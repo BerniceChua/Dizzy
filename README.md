@@ -1,8 +1,15 @@
 # Dizzy
-Augmented Reality 'endless runner' game made with Unity & C#, which uses an Android phone's built-in sensors (gyroscope, accelerometer, compass) to control the player character's movements.  Spin around faster to move faster!  Please make sure that you have ample space to move around, and that you are in a safe area with no people or things that could obstruct your movement or injur you.
+Augmented Reality 'endless runner' game made with Unity & C#, which uses an Android phone's built-in sensors (gyroscope & accelerometer) to control the player character's movements.  Spin around faster to move faster!  Please make sure that you have ample space to move around, and that you are in a safe area with no people or things that could obstruct your movement or injure you.
+
+This project started out as our entry for [AT&T VR/AR Hackathon - Bay Area](https://www.eventbrite.com/e/att-vrar-hackathon-bay-area-tickets-33467242423#).  In this prototype for an AR "game", players move the player character by spinning themselves around while holding their phone.  The faster you spin, the faster your character moves.  
+
+The player spins like this guy <https://www.youtube.com/watch?v=r06KkBHq354> but imagine that guy holding the phone in front of him.  He needs to do that so he can see the screen, and see the player character.
+
 
 ## About
-This was our entry for [AT&T VR/AR Hackathon - Bay Area](https://www.eventbrite.com/e/att-vrar-hackathon-bay-area-tickets-33467242423#).  In this prototype for an AR "game", players move the player character by spinning themselves around while holding their phone.  The faster you spin, the faster your character moves.  
+This was my first time working with augmented reality and using the phone sensors.  I took this hackathon as an opportunity to try something out of my comfort zone, and learn something new.  I have learned how to use 'markerless' AR, and I have explored the different ways that Unity accesses a smartphone's sensors.  
+
+The rest of the 'history' of my experimentation is here: <https://github.com/BerniceChua/Dizzy_Unity5-4-5>
 
 ### Technologies Used
 - Unity3D
@@ -33,5 +40,7 @@ Please send feedback by [opening a new Issue](https://github.com/BerniceChua/the
 
 ## Issues
 ### To-Dos & Stretch Goals:
-1. Add incentives for players to move faster (if player hits the side of the screen it is running away from, it will explode).
-2. Add movement options (jumping).
+1. UI & UX
+2. Keeping score.
+3. MAYBE: Add incentives for players to move faster (if player hits the side of the screen it is running away from, it will explode).
+4. MAYBE: Add movement options (jumping).
