@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MarkerlessAR : MonoBehaviour {
-	/// <summary>
-	/// Gyroscope
-	/// </summary>
-	private Gyroscope gyro;
+    /// <summary>
+    /// Gyroscope
+    /// </summary>
+    private Gyroscope gyro;
 	private GameObject cameraContainer;
 	private Quaternion rotation;
 
@@ -22,6 +22,7 @@ public class MarkerlessAR : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+#if !UNITY_EDITOR
 		/// Check if we support both services
 		/// Gyroscope
 		if (!SystemInfo.supportsGyroscope) {
@@ -57,10 +58,13 @@ public class MarkerlessAR : MonoBehaviour {
         background.texture = cam;
 
         arReady = true;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+#endif
+    }
+
+    // Update is called once per frame
+    void Update () {
 		if (arReady) {
             /// Update camera every single frame
             float ratio = (float)cam.width / (float)cam.height;
