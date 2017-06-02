@@ -58,6 +58,8 @@ public class MarkerlessAR : MonoBehaviour {
         background.texture = cam;
 
         arReady = true;
+
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
 #endif
     }
 
