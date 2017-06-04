@@ -16,6 +16,11 @@ public class TimeElapsed : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Timer();
+    }
+
+    public void Timer()
+    {
         int minutes = Mathf.FloorToInt(m_timer / 60);
         int seconds = Mathf.FloorToInt(m_timer % 60);
 
@@ -23,9 +28,10 @@ public class TimeElapsed : MonoBehaviour {
 
         m_timeElapsed.text = formattedTime;
 
-        System.TimeSpan t = System.TimeSpan.FromSeconds(m_timer);
-        string timerFormatted = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
+        //System.TimeSpan t = System.TimeSpan.FromSeconds(m_timer);
+        //string timerFormatted = string.Format("{0:D2}h:{1:D2}m:{2:D2}s:{3:D3}ms", t.Hours, t.Minutes, t.Seconds, t.Milliseconds);
 
-        m_timeElapsed.text = timerFormatted;
+        //m_timeElapsed.text = timerFormatted;
     }
+
 }
