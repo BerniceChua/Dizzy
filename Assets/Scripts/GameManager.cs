@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ResetGame() {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         StartTheGame();
     }
 
