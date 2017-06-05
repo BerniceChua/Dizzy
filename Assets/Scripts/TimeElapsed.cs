@@ -47,8 +47,10 @@ public class TimeElapsed : MonoBehaviour {
         float t = Time.time - m_startTime;
         string hours = ((int) t / 3600).ToString("00");
         string minutes = ((int) t / 60).ToString("00");
-        string seconds = ((int) t % 60).ToString("00");
-
+        //string seconds = ((int) t % 60).ToString("00");
+        //string seconds = string.Format("{0:00.00}", (t % 60).ToString("00"));
+        string seconds = (t % 60).AddOneLeadingZero();
+        
         m_timeElapsed.text = hours + ":" + minutes + ":" + seconds;
     }
 
