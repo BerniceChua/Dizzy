@@ -5,10 +5,18 @@ using UnityEngine.UI;
 
 public class TimeElapsed : MonoBehaviour {
 
+    public Dictionary<string, float> m_ScoreTime = new Dictionary<string, float>();
+
     [SerializeField] Text m_timeElapsed;
+    
     //float time = Time.realtimeSinceStartup;
     //int m_timer = 0;
     float m_startTime;
+
+    [SerializeField] bool m_gameOver = false;
+
+    float m_runningTime;
+    [SerializeField] ScoreTime m_scoreTime;
 
     //void Awake()
     //{
@@ -25,6 +33,11 @@ public class TimeElapsed : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (m_gameOver) {
+            GameOver();
+            return;
+        }
+
         Timer();
     }
 
@@ -44,18 +57,47 @@ public class TimeElapsed : MonoBehaviour {
 
         //m_timeElapsed.text = timerFormatted;
 
-        float t = Time.time - m_startTime;
-        string hours = ((int) t / 3600).ToString("00");
-        string minutes = ((int) t / 60).ToString("00");
+        //float m_runningTime = Time.time - m_startTime;
+        m_runningTime = Time.time - m_startTime;
+        DisplayFormattedTime();
+    }
+
+    private void DisplayFormattedTime() {
+        string hours = ((int)m_runningTime / 3600).ToString("00");
+        string minutes = ((int)m_runningTime / 60).ToString("00");
         //string seconds = ((int) t % 60).ToString("00");
         //string seconds = string.Format("{0:00.00}", (t % 60).ToString("00"));
-        string seconds = (t % 60).AddOneLeadingZero();
-        
+        string seconds = (m_runningTime % 60).AddOneLeadingZero();
+
         m_timeElapsed.text = hours + ":" + minutes + ":" + seconds;
     }
 
     public void ResetTime() {
+        m_gameOver = false;
+        m_timeElapsed.color = Color.white;
         m_startTime = Time.time;
     }
 
+    public void GameOver() {
+        //m_ScoreTime.Add(m_timeElapsed.text, m_runningTime);
+
+        //Debug.Log("m_scoreTime = " + m_ScoreTime);
+        //Debug.Log("m_ScoreTime.Keys = " + m_ScoreTime.Keys);
+        //Debug.Log("m_ScoreTime.Values = " + m_ScoreTime.Values);
+        //Debug.Log("m_ScoreTime[m_timeElapsed.text] = " + m_ScoreTime[m_timeElapsed.text]);
+
+        m_scoreTime.FindHigherScore("Best Time", m_scoreTime.ShowCurrentHighScore("Best Time"), m_runningTime);
+        Debug.Log(PlayerPrefs.GetFloat("Best Time"));
+
+        if (m_scoreTime.IsNewScoreHigher()) {
+            m_timeElapsed.color = Color.green;
+
+            /// Add some fancy text animations.
+
+            return;
+        } else {
+            m_timeElapsed.color = Color.yellow;
+            return;
+        }
+    }
 }
