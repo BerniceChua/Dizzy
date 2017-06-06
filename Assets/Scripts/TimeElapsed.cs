@@ -59,17 +59,17 @@ public class TimeElapsed : MonoBehaviour {
 
         //float m_runningTime = Time.time - m_startTime;
         m_runningTime = Time.time - m_startTime;
-        DisplayFormattedTime();
+        m_timeElapsed.text = DisplayFormattedTime(m_runningTime);
     }
 
-    private void DisplayFormattedTime() {
-        string hours = ((int)m_runningTime / 3600).ToString("00");
-        string minutes = ((int)m_runningTime / 60).ToString("00");
+    public string DisplayFormattedTime(float unformattedTime) {
+        string hours = ((int)unformattedTime / 3600).ToString("00");
+        string minutes = ((int)unformattedTime / 60).ToString("00");
         //string seconds = ((int) t % 60).ToString("00");
         //string seconds = string.Format("{0:00.00}", (t % 60).ToString("00"));
-        string seconds = (m_runningTime % 60).AddOneLeadingZero();
+        string seconds = (unformattedTime % 60).AddOneLeadingZero();
 
-        m_timeElapsed.text = hours + ":" + minutes + ":" + seconds;
+        return hours + ":" + minutes + ":" + seconds;
     }
 
     public void ResetTime() {
@@ -87,7 +87,7 @@ public class TimeElapsed : MonoBehaviour {
         //Debug.Log("m_ScoreTime[m_timeElapsed.text] = " + m_ScoreTime[m_timeElapsed.text]);
 
         m_scoreTime.FindHigherScore("Best Time", m_scoreTime.ShowCurrentHighScore("Best Time"), m_runningTime);
-        Debug.Log(PlayerPrefs.GetFloat("Best Time"));
+        //Debug.Log(PlayerPrefs.GetFloat("Best Time"));
 
         if (m_scoreTime.IsNewScoreHigher()) {
             m_timeElapsed.color = Color.green;
