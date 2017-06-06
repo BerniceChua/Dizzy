@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using UnityEngine.UI;
+
 public class GameManager : MonoBehaviour {
     [SerializeField] TimeElapsed m_timeElapsed;
     //[SerializeField] GameObject m_splashScreen;
+    [SerializeField] Text m_timeElapsedText;
 
     //private int floorMask = LayerMask.GetMask("Floor");
+
+    bool m_gameOver = false;
 
     public static GameManager control;
     //void Awake() {
@@ -37,6 +42,9 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (m_gameOver)
+            return;
+
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
             StartTheGame();
@@ -54,12 +62,16 @@ public class GameManager : MonoBehaviour {
     }
 
     public void ResetGame() {
-        //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         StartTheGame();
+        m_timeElapsedText.color = Color.white;
     }
 
     public void GoToMainMenu() {
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+        //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+    public void GameOver() {
+
     }
 
 }
