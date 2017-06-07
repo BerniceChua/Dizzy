@@ -70,6 +70,18 @@ public class GameManager : MonoBehaviour {
         //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
     }
 
+    public void PauseGame()
+    {
+        //Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        Time.timeScale = 0;
+    }
+
+    public void UnpauseGame()
+    {
+        //Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        Time.timeScale = 1;
+    }
+
     public void GameOver() {
 
     }
