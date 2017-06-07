@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 using UnityEngine.UI;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class GameManager : MonoBehaviour {
     [SerializeField] TimeElapsed m_timeElapsed;
     //[SerializeField] GameObject m_splashScreen;
@@ -84,6 +88,15 @@ public class GameManager : MonoBehaviour {
 
     public void GameOver() {
 
+    }
+
+    public void QuitGame()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
 }
