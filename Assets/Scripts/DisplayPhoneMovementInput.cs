@@ -45,7 +45,7 @@ public class DisplayPhoneMovementInput : MonoBehaviour
             "\nAccelerometer = " + Input.acceleration.ToString() +
             "\n(Input.gyro.attitude.x - m_previousSpeed) = " + (Input.gyro.attitude.x - m_previousSpeed).ToString() +
             "\nspeed = " + speed * 200 +
-           "\nm_previousSpeed = " + m_previousSpeed.ToString() +
+           "\nTime.timeScale = " + Time.timeScale +
             "\nm_lastPosition = " + m_lastPosition.ToString();
     }
 }
