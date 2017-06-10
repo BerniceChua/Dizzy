@@ -20,6 +20,14 @@ public class TimeElapsed : MonoBehaviour {
 
     [SerializeField] GameManager m_gameManager;
 
+    [SerializeField] DisplayGameOverScreen m_displayGameOverScreen;
+
+    [SerializeField] GameObject m_gameOverDisplay;
+
+    [SerializeField] GameObject m_timerObject;
+
+    [SerializeField] GameObject m_newHighScore;
+
     //void Awake()
     //{
     //    //m_timeElapsed.text = "00:00";
@@ -108,14 +116,32 @@ public class TimeElapsed : MonoBehaviour {
             m_timeElapsed.color = Color.green;
 
             /// Add some fancy text animations.
-
-            return;
         } else {
             Debug.Log("The running time has not beaten the record time of ");
             Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
             Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
             m_timeElapsed.color = Color.yellow;
-            return;
         }
+
+        //m_displayGameOverScreen.DisplayGameOverMessage();
+        DisplayGameOverMessage();
+    }
+
+    public void DisplayGameOverMessage() {
+        m_gameManager.PauseGame();
+
+        /// Add a paused time between these 2 events.
+        /// Add some fancy text animations.
+        m_timerObject.SetActive(false);
+        m_gameOverDisplay.SetActive(true);
+        m_gameOverDisplay.GetComponentInChildren<Text>().text = DisplayFormattedTime(m_scoreTime.ShowCurrentHighScore("Best Time"));
+
+        if (PlayerPrefs.GetFloat("Best Time") <= m_runningTime)
+        {
+            m_newHighScore.SetActive(true);
+
+        }
+
+        //m_menuAndPausePanel.SetActive(true);
     }
 }
