@@ -13,7 +13,7 @@ public class TimeElapsed : MonoBehaviour {
     //int m_timer = 0;
     float m_startTime;
 
-    [SerializeField] bool m_gameOver = false;
+    public bool m_gameOver = false;
 
     float m_runningTime;
     [SerializeField] ScoreTime m_scoreTime;
