@@ -19,16 +19,29 @@ public class ScoreTime : MonoBehaviour {
         return PlayerPrefs.GetFloat(scoreName);
     }
 
-    public void FindHigherScore(string scoreName, float oldScore, float newScore) {
-        if (oldScore >= newScore)
-            return;
+    //public void FindHigherScore(string scoreName, float oldScore, float newScore) {
+    public void FindHigherScore(string scoreName, float newScore) {
+        //if (PlayerPrefs.GetFloat("Best Time") < newScore)
+        Debug.Log(IsNewScoreHigher(newScore));
+        if (IsNewScoreHigher(newScore)) {
+        //if (IsNewScoreHigher()) {
+            PlayerPrefs.SetFloat(scoreName, newScore);
+            m_isNewScoreHigher = true;
+        } else {
+            m_isNewScoreHigher = false;
+        }
 
-        m_isNewScoreHigher = true;
-        PlayerPrefs.SetFloat(scoreName, newScore);
+        //PlayerPrefs.SetFloat(scoreName, newScore);
+        return;
     }
 
-    public bool IsNewScoreHigher() {
-        return m_isNewScoreHigher;
+    public bool IsNewScoreHigher(float newScore) {
+        //public bool IsNewScoreHigher() {
+        //return m_isNewScoreHigher;
+        //Debug.Log("PlayerPrefs.GetFloat('Best Time') < newScore) = " + (PlayerPrefs.GetFloat("Best Time") < newScore) );
+        Debug.Log(PlayerPrefs.GetFloat("Best Time"));
+        Debug.Log(newScore);
+        return (PlayerPrefs.GetFloat("Best Time") < newScore);
     }
 
 }

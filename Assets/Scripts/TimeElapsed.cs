@@ -18,6 +18,8 @@ public class TimeElapsed : MonoBehaviour {
     float m_runningTime;
     [SerializeField] ScoreTime m_scoreTime;
 
+    [SerializeField] GameManager m_gameManager;
+
     //void Awake()
     //{
     //    //m_timeElapsed.text = "00:00";
@@ -86,16 +88,32 @@ public class TimeElapsed : MonoBehaviour {
         //Debug.Log("m_ScoreTime.Values = " + m_ScoreTime.Values);
         //Debug.Log("m_ScoreTime[m_timeElapsed.text] = " + m_ScoreTime[m_timeElapsed.text]);
 
-        m_scoreTime.FindHigherScore("Best Time", m_scoreTime.ShowCurrentHighScore("Best Time"), m_runningTime);
+        //m_scoreTime.FindHigherScore("Best Time", m_scoreTime.ShowCurrentHighScore("Best Time"), m_runningTime);
+        m_scoreTime.FindHigherScore("Best Time", m_runningTime);
         //Debug.Log(PlayerPrefs.GetFloat("Best Time"));
 
-        if (m_scoreTime.IsNewScoreHigher()) {
+        m_gameManager.PauseGame();
+        Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
+        //Debug.Log("m_scoreTime.IsNewScoreHigher() = " + m_scoreTime.IsNewScoreHigher());
+        Debug.Log("m_scoreTime.ShowCurrentHighScore('Best Time') = " + m_scoreTime.ShowCurrentHighScore("Best Time"));
+        Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+        Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        //if (m_scoreTime.IsNewScoreHigher(m_runningTime)) {
+        //if (m_scoreTime.IsNewScoreHigher()) {
+        if (PlayerPrefs.GetFloat("Best Time") <= m_runningTime) {
+            Debug.Log("The running time of " + m_runningTime + " is bigger than ");
+            Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+            Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
             m_timeElapsed.color = Color.green;
 
             /// Add some fancy text animations.
 
             return;
         } else {
+            Debug.Log("The running time has not beaten the record time of ");
+            Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+            Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
             m_timeElapsed.color = Color.yellow;
             return;
         }
