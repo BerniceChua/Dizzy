@@ -41,7 +41,7 @@ Please send feedback by [opening a new Issue](https://github.com/BerniceChua/the
 
 ## Issues
 ### To-Dos & Stretch Goals:
-1. UI & UX (completed)
-2. Keeping score.
+1. UI & UX (completed).
+2. Keeping score (completed).
 3. MAYBE: Add incentives for players to move faster (if player hits the side of the screen it is running away from, it will explode).
 4. MAYBE: Add movement options (jumping).
