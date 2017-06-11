@@ -23,5 +23,6 @@ public class DetectIfGamePieceIsOnLeftEdge : MonoBehaviour {
             m_timeElapsed.GameOver();
         }
 
+        return;
 	}
 }

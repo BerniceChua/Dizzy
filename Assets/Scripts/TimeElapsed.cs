@@ -24,9 +24,12 @@ public class TimeElapsed : MonoBehaviour {
 
     [SerializeField] GameObject m_gameOverDisplay;
 
-    [SerializeField] GameObject m_timerObject;
+    //[SerializeField] GameObject m_timerObject;
+    [SerializeField] Text m_timerObject;
 
     [SerializeField] GameObject m_newHighScore;
+
+    [SerializeField] GameObject m_menuAndPausePanel;
 
     //void Awake()
     //{
@@ -110,38 +113,48 @@ public class TimeElapsed : MonoBehaviour {
         //if (m_scoreTime.IsNewScoreHigher(m_runningTime)) {
         //if (m_scoreTime.IsNewScoreHigher()) {
         if (PlayerPrefs.GetFloat("Best Time") <= m_runningTime) {
-            Debug.Log("The running time of " + m_runningTime + " is bigger than ");
-            Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
-            Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
+            //Debug.Log("The running time of " + m_runningTime + " is bigger than ");
+            //Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+            //Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
             m_timeElapsed.color = Color.green;
 
             /// Add some fancy text animations.
         } else {
-            Debug.Log("The running time has not beaten the record time of ");
-            Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
-            Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
+            //Debug.Log("The running time has not beaten the record time of ");
+            //Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+            //Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
             m_timeElapsed.color = Color.yellow;
         }
 
         //m_displayGameOverScreen.DisplayGameOverMessage();
-        DisplayGameOverMessage();
+        StartCoroutine(DisplayGameOverMessage());
     }
 
-    public void DisplayGameOverMessage() {
-        m_gameManager.PauseGame();
-
+    public IEnumerator DisplayGameOverMessage() {
+        //m_gameManager.UnpauseGame();
+        Debug.Log("Hello");
         /// Add a paused time between these 2 events.
+        yield return new WaitForSecondsRealtime(2);
+        Debug.Log("Hello from the other side!!!");
+
         /// Add some fancy text animations.
-        m_timerObject.SetActive(false);
+        m_timerObject.enabled = false;
         m_gameOverDisplay.SetActive(true);
-        m_gameOverDisplay.GetComponentInChildren<Text>().text = DisplayFormattedTime(m_scoreTime.ShowCurrentHighScore("Best Time"));
+        m_gameOverDisplay.GetComponentInChildren<Text>().text = DisplayFormattedTime(m_runningTime);
+        m_gameOverDisplay.GetComponentInChildren<Text>().color = Color.yellow;
 
         if (PlayerPrefs.GetFloat("Best Time") <= m_runningTime)
         {
+            m_gameOverDisplay.GetComponentInChildren<Text>().color = Color.green;
+            Debug.Log("Special message should appear... in 3... 2... 1:");
+            yield return new WaitForSecondsRealtime(3);
             m_newHighScore.SetActive(true);
 
         }
 
-        //m_menuAndPausePanel.SetActive(true);
+        yield return new WaitForSecondsRealtime(3);
+        m_gameOverDisplay.SetActive(false);
+        m_timerObject.enabled = true;
+        m_menuAndPausePanel.SetActive(true);
     }
 }
