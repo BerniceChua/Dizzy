@@ -2,8 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class DisplayPhoneMovementInput : MonoBehaviour
-{
+public class DisplayPhoneMovementInput : MonoBehaviour{
+
+    [SerializeField] GameObject m_gamePiece;
+    [SerializeField] Camera m_cameraPosition;
 
     Text m_text { get { return GetComponent<Text>(); } set { m_text = value; } }
 
@@ -44,7 +46,8 @@ public class DisplayPhoneMovementInput : MonoBehaviour
             "\n Input.gyro.rotationRate.x = " + Input.gyro.rotationRate.x.ToString() +
             "\nAccelerometer = " + Input.acceleration.ToString() +
             "\n(Input.gyro.attitude.x - m_previousSpeed) = " + (Input.gyro.attitude.x - m_previousSpeed).ToString() +
-            "\nspeed = " + speed * 200 +
+            "\nm_gamePiece.transform = " + m_gamePiece.transform +
+            "\nm_cameraPosition.transform = " + m_cameraPosition.transform +
            "\nTime.timeScale = " + Time.timeScale +
             "\nm_lastPosition = " + m_lastPosition.ToString();
     }
