@@ -25,7 +25,7 @@ public class Orbit : MonoBehaviour {
         transform.RotateAround(target.position, Vector3.up, -m_slideBackwards + speedOfGamePiece);
     }
 
-    float GetSpeed()
+    public float GetSpeed()
     {
         //float speed = (Input.acceleration.x - m_previousSpeed) / Time.deltaTime;
 
