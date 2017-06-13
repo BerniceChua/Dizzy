@@ -34,6 +34,8 @@ public class TimeElapsed : MonoBehaviour {
 
     [SerializeField] RepositionAfterGameOver m_resetGamePiece;
 
+    [SerializeField] Orbit m_orbit;
+
     //void Awake()
     //{
     //    //m_timeElapsed.text = "00:00";
@@ -130,6 +132,7 @@ public class TimeElapsed : MonoBehaviour {
             m_timeElapsed.color = Color.yellow;
         }
 
+        m_orbit.enabled = false;
         m_resetGamePiece.ResetPosition();
         //m_displayGameOverScreen.DisplayGameOverMessage();
         StartCoroutine(DisplayGameOverMessage());
@@ -161,6 +164,6 @@ public class TimeElapsed : MonoBehaviour {
         m_newHighScore.SetActive(false);
         m_timerObject.enabled = true;
         m_menuAndPausePanel.SetActive(true);
-        m_resetGamePiece.ReEnable();
+        //m_resetGamePiece.ReEnable();
     }
 }

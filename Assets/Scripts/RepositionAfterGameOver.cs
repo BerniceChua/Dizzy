@@ -11,7 +11,8 @@ public class RepositionAfterGameOver : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        m_initialRotation = m_gamePiece.transform.rotation;
+        //m_initialRotation = m_gamePiece.transform.rotation;
+        m_initialRotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
         m_initialPosition = new Vector3(0, -5, 44.77f);
     }
 
@@ -28,11 +29,15 @@ public class RepositionAfterGameOver : MonoBehaviour {
         //m_gamePiece.transform.position.Set(0, -5, 44.77f);
         m_gamePiece.transform.position = m_initialPosition;
         m_gamePiece.transform.rotation = m_initialRotation;
-        m_gamePiece.SetActive(false);
+        //m_gamePiece.SetActive(false);
+        m_gamePiece.GetComponent<Orbit>().enabled = false;
     //}
     }
 
     public void ReEnable() {
+        m_gamePiece.transform.position = m_initialPosition;
+        m_gamePiece.transform.rotation = m_initialRotation;
         m_gamePiece.SetActive(true);
+        m_gamePiece.GetComponent<Orbit>().enabled = true;
     }
 }
