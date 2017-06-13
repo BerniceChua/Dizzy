@@ -12,20 +12,20 @@ public class DisplayPhoneMovementInput : MonoBehaviour{
 
     Vector3 m_lastPosition = Vector3.zero;
     float m_previousSpeed = 0.0f;
-    [SerializeField] Camera m_cam;
+    //[SerializeField] Camera m_cam;
     Vector3 m_whereCameraIsPointing;
 
     // Use this for initialization
     void Start()
     {
-        m_whereCameraIsPointing = m_cam.ViewportToWorldPoint(m_cam.transform.forward);
+        m_whereCameraIsPointing = m_cameraPosition.ViewportToWorldPoint(m_cameraPosition.transform.forward);
     }
 
     // Update is called once per frame
     void Update()
     {
         string gyroAttitude = Input.gyro.attitude.ToString();
-        m_whereCameraIsPointing = m_cam.ViewportToWorldPoint(m_cam.transform.forward);
+        m_whereCameraIsPointing = m_cameraPosition.ViewportToWorldPoint(m_cameraPosition.transform.forward);
 
         //float speed = (Input.acceleration - m_lastPosition).magnitude / Time.deltaTime;
         //float speed = (Input.acceleration.x - m_lastPosition.x) / Time.deltaTime;
