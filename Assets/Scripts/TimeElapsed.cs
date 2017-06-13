@@ -16,6 +16,7 @@ public class TimeElapsed : MonoBehaviour {
     public bool m_gameOver = false;
 
     float m_runningTime;
+    float m_endingTime;
     [SerializeField] ScoreTime m_scoreTime;
 
     [SerializeField] GameManager m_gameManager;
@@ -24,9 +25,16 @@ public class TimeElapsed : MonoBehaviour {
 
     [SerializeField] GameObject m_gameOverDisplay;
 
-    [SerializeField] GameObject m_timerObject;
+    //[SerializeField] GameObject m_timerObject;
+    [SerializeField] Text m_timerObject;
 
     [SerializeField] GameObject m_newHighScore;
+
+    [SerializeField] GameObject m_menuAndPausePanel;
+
+    [SerializeField] RepositionAfterGameOver m_resetGamePiece;
+
+    [SerializeField] Orbit m_orbit;
 
     //void Awake()
     //{
@@ -96,52 +104,66 @@ public class TimeElapsed : MonoBehaviour {
         //Debug.Log("m_ScoreTime.Values = " + m_ScoreTime.Values);
         //Debug.Log("m_ScoreTime[m_timeElapsed.text] = " + m_ScoreTime[m_timeElapsed.text]);
 
+        m_gameManager.PauseGame();
+        m_endingTime = m_runningTime;
         //m_scoreTime.FindHigherScore("Best Time", m_scoreTime.ShowCurrentHighScore("Best Time"), m_runningTime);
-        m_scoreTime.FindHigherScore("Best Time", m_runningTime);
+        m_scoreTime.FindHigherScore("Best Time", m_endingTime);
         //Debug.Log(PlayerPrefs.GetFloat("Best Time"));
 
-        m_gameManager.PauseGame();
-        Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
-        //Debug.Log("m_scoreTime.IsNewScoreHigher() = " + m_scoreTime.IsNewScoreHigher());
-        Debug.Log("m_scoreTime.ShowCurrentHighScore('Best Time') = " + m_scoreTime.ShowCurrentHighScore("Best Time"));
-        Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
-        Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_endingTime));
+        ////Debug.Log("m_scoreTime.IsNewScoreHigher() = " + m_scoreTime.IsNewScoreHigher());
+        //Debug.Log("m_scoreTime.ShowCurrentHighScore('Best Time') = " + m_scoreTime.ShowCurrentHighScore("Best Time"));
+        //Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+        //Debug.Log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         //if (m_scoreTime.IsNewScoreHigher(m_runningTime)) {
         //if (m_scoreTime.IsNewScoreHigher()) {
-        if (PlayerPrefs.GetFloat("Best Time") <= m_runningTime) {
-            Debug.Log("The running time of " + m_runningTime + " is bigger than ");
-            Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
-            Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
+        if (PlayerPrefs.GetFloat("Best Time") <= m_endingTime) {
+            //Debug.Log("The running time of " + m_runningTime + " is bigger than ");
+            //Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+            //Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
             m_timeElapsed.color = Color.green;
 
             /// Add some fancy text animations.
         } else {
-            Debug.Log("The running time has not beaten the record time of ");
-            Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
-            Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
+            //Debug.Log("The running time has not beaten the record time of ");
+            //Debug.Log("PlayerPrefs.GetFloat('Best Time') = " + PlayerPrefs.GetFloat("Best Time"));
+            //Debug.Log("m_scoreTime.IsNewScoreHigher(m_runningTime) = " + m_scoreTime.IsNewScoreHigher(m_runningTime));
             m_timeElapsed.color = Color.yellow;
         }
 
+        m_orbit.enabled = false;
+        m_resetGamePiece.ResetPosition();
         //m_displayGameOverScreen.DisplayGameOverMessage();
-        DisplayGameOverMessage();
+        StartCoroutine(DisplayGameOverMessage());
     }
 
-    public void DisplayGameOverMessage() {
-        m_gameManager.PauseGame();
-
+    public IEnumerator DisplayGameOverMessage() {
+        Debug.Log("Hello");
         /// Add a paused time between these 2 events.
-        /// Add some fancy text animations.
-        m_timerObject.SetActive(false);
-        m_gameOverDisplay.SetActive(true);
-        m_gameOverDisplay.GetComponentInChildren<Text>().text = DisplayFormattedTime(m_scoreTime.ShowCurrentHighScore("Best Time"));
+        yield return new WaitForSecondsRealtime(2);
+        Debug.Log("Hello from the other side!!!");
 
-        if (PlayerPrefs.GetFloat("Best Time") <= m_runningTime)
+        /// Add some fancy text animations.
+        m_timerObject.enabled = false;
+        m_gameOverDisplay.SetActive(true);
+        m_gameOverDisplay.GetComponentInChildren<Text>().text = DisplayFormattedTime(m_endingTime);
+        m_gameOverDisplay.GetComponentInChildren<Text>().color = Color.yellow;
+
+        if (PlayerPrefs.GetFloat("Best Time") <= m_endingTime)
         {
+            m_gameOverDisplay.GetComponentInChildren<Text>().color = Color.green;
+            Debug.Log("Special message should appear... in 3... 2... 1:");
+            yield return new WaitForSecondsRealtime(3);
             m_newHighScore.SetActive(true);
 
         }
 
-        //m_menuAndPausePanel.SetActive(true);
+        yield return new WaitForSecondsRealtime(3);
+        m_gameOverDisplay.SetActive(false);
+        m_newHighScore.SetActive(false);
+        m_timerObject.enabled = true;
+        m_menuAndPausePanel.SetActive(true);
+        //m_resetGamePiece.ReEnable();
     }
 }

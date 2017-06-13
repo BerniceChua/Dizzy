@@ -6,6 +6,7 @@ public class Orbit : MonoBehaviour {
 
     public Transform target;
     [SerializeField] float m_multiplier = 10.0f;
+    [SerializeField] float m_slideBackwards = 1.0f;
 
     // Use this for initialization
     void Start () {
@@ -21,10 +22,10 @@ public class Orbit : MonoBehaviour {
         float speedOfGamePiece = GetSpeed();
 
         //transform.RotateAround(target.position, target.up, speedOfGamePiece);
-        transform.RotateAround(target.position, Vector3.up, speedOfGamePiece);
+        transform.RotateAround(target.position, Vector3.up, -m_slideBackwards + speedOfGamePiece);
     }
 
-    float GetSpeed()
+    public float GetSpeed()
     {
         //float speed = (Input.acceleration.x - m_previousSpeed) / Time.deltaTime;
 
